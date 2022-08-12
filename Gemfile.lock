@@ -1,0 +1,17 @@
+PATH
+  remote: .
+  specs:
+    missing_rspec (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  x86_64-darwin-21
+
+DEPENDENCIES
+  missing_rspec!
+
+BUNDLED WITH
+   2.3.20
