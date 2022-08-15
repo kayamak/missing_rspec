@@ -57,7 +57,7 @@ RSpec.describe do
             end
 
             it 'does not result in an error after execution' do
-              expect(@rake[task].invoke('','models, controllers')).to be_truthy
+              expect(@rake[task].invoke('','models; controllers; jobs;')).to be_truthy
             end
           end
         end
@@ -103,7 +103,7 @@ RSpec.describe do
             end
 
             it 'does not result in an error after execution' do
-              expect(@rake[task].invoke('','models, controllers')).to be_truthy
+              expect(@rake[task].invoke('','models; controllers; jobs;')).to be_truthy
             end
           end
         end

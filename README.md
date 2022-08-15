@@ -10,13 +10,9 @@ To use it, add it to your Gemfile:
 gem 'missing_rspec', group: :development
 ```
 
-## Usage
+## How to use the preview
 
 ### How to specify rails path as an argument to rake
-
-```shell
-bin/rails runner "puts Rails.root.to_s"
-```
 
 Example when rails path is /app
 
@@ -41,10 +37,19 @@ RAILS_APP_PATH=/app
 ```shell
 bin/rails missing_rspec
 ```
-## Execution example
+
+### The second argument can be used to narrow down the target.
+
+The following is an example of specifying models, controllers and jobs.
 
 ```shell
-root@be31b61b9f18:/app/missing_rspec# bin/rails missing_rspec
+bin/rails missing_rspec[/app,models;controllers;jobs]
+```
+
+### Execution example
+
+```shell
+bin/rails missing_rspec
 
 
 
@@ -155,6 +160,34 @@ The following folders are targeted: ["channels", "controllers", "forms", "helper
   │  ├authenticator.rb
   │  └entry_acceptor.rb
   └<staff>
+```
+
+## How to use the creator
+Note: Due to the large number of rspec files to be written, It is recommended that you git-commit the file before executing it so that you can revert it.
+### Create all RSpecs shown in preview.
+
+Example when rails path is /app
+
+```shell
+bin/rails missing_rspec_create[/app]
+```
+
+Example .env file when rails path is /app
+
+```shell
+RAILS_APP_PATH=/app
+```
+
+```shell
+bin/rails missing_rspec_create
+```
+
+### The second argument can be used to narrow down the target.
+
+The following is an example of specifying models, controllers and jobs.
+
+```shell
+bin/rails missing_rspec_create[/app,models;controllers;jobs]
 ```
 
 ## Contributing

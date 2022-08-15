@@ -1,25 +1,18 @@
 require 'missing_rspec/tree'
-require 'missing_rspec/folder_types_finder'
 require 'missing_rspec/module_name'
 require 'fileutils'
 
 module MissingRspec
   class Creator
-    attr_reader :app_path, :folder_type
+    attr_reader :app_path, :folder_types
 
-    def initialize(app_path:, folder_type:)
+    def initialize(app_path:, folder_types:)
      # e.g. app_path:/app
-      @app_path = app_path || ENV['RAILS_APP_PATH']
-      @folder_type = folder_type
-      raise "Set the rails app path to the rake argument or the environment variable RAILS_APP_PATH." unless @app_path
+      @app_path = app_path
+      @folder_types = folder_types
     end
 
     def execute
-      folder_types = MissingRspec::FolderTypesFinder.new(app_path).fetch_folder_types
-      if folder_type != 'all'
-        folder_types &&= folder_type.split(',').map!(&:strip)
-      end
-      puts "The following folders are targeted: #{folder_types}"
       folder_types.each do |folder_type|
         rspecs_per_module_name = fetch_rspecs_per_module_name(folder_type)
         create_rspecs(folder_type, rspecs_per_module_name)
