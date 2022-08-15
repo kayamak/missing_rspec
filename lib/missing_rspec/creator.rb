@@ -5,16 +5,20 @@ require 'fileutils'
 
 module MissingRspec
   class Creator
-    attr_reader :app_path
+    attr_reader :app_path, :folder_type
 
-    def initialize(app_path)
-      # e.g. /app
+    def initialize(app_path:, folder_type:)
+     # e.g. app_path:/app
       @app_path = app_path || ENV['RAILS_APP_PATH']
+      @folder_type = folder_type
       raise "Set the rails app path to the rake argument or the environment variable RAILS_APP_PATH." unless @app_path
     end
 
     def execute
       folder_types = MissingRspec::FolderTypesFinder.new(app_path).fetch_folder_types
+      if folder_type != 'all'
+        folder_types &&= folder_type.split(',').map!(&:strip)
+      end
       puts "The following folders are targeted: #{folder_types}"
       folder_types.each do |folder_type|
         rspecs_per_module_name = fetch_rspecs_per_module_name(folder_type)
@@ -36,11 +40,9 @@ module MissingRspec
           rspec_file_name = rspec.sub(/.rb$/, '_spec.rb')
           rspec_full_path_file_name = "#{rspec_full_path}#{rspec_file_name}"
           class_name = rspec.sub(/.rb$/, '').classify
-          puts "=====> module_name:#{module_name}, rspec_full_path_file_name:#{rspec_full_path_file_name}, class_name:#{class_name}"
           full_class_name = build_full_class_name(module_name, class_name)
           rspec_content = build_rspec_content(full_class_name, folder_type)
 
-          puts "rspec_content=====>#{rspec_content}"
           write_rspec_content(rspec_full_path_file_name, rspec_content)
         end
       end

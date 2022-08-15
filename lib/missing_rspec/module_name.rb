@@ -11,12 +11,9 @@ module MissingRspec
 
     def rspecs_per_module_name
       original_module_names = make_original_module_names
-      #puts "=====> folder_type:#{folder_type}, original_module_names:#{original_module_names}"
       spec_module_names = make_spec_module_names
-      #puts "=====> folder_type:#{folder_type}, spec_module_names:#{spec_module_names}"
 
       target_module_names = find_rspecs_per_module_name(original_module_names, spec_module_names)
-      # puts "=====> folder_type:#{folder_type}, target_module_names:#{target_module_names}"
       target_module_names
     end
 
@@ -50,7 +47,6 @@ module MissingRspec
 
         lower_dirs.each do |lower_dir|
           lower_module_name = "#{module_name}#{module_name.blank? ? '' : '::'}#{lower_dir.camelize}"
-          #puts "=======>lower_dir:#{lower_dir}, lower_module_name:#{lower_module_name}"
           trace_dir.call(lower_dir, lower_module_name)
         end
 
