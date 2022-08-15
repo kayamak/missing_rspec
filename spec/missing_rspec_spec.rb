@@ -1,5 +1,6 @@
 require "rake"
 
+# bundle exec rspec spec/missing_rspec_spec.rb
 RSpec.describe do
   before(:all) do
     @rake = Rake::Application.new
