@@ -18,26 +18,54 @@ RSpec.describe do
   end
 
   describe  do
-    let(:task) { 'missing_rspec' }
+    context 'When task is missing_rspec' do
+      let(:task) { 'missing_rspec' }
 
-    context 'When app_path is specified as an argument to rake' do
-      it 'does not result in an error after execution' do
-        expect(@rake[task].invoke('/app')).to be_truthy
+      context 'When app_path is specified as an argument to rake' do
+        it 'does not result in an error after execution' do
+          expect(@rake[task].invoke('/app')).to be_truthy
+        end
+      end
+      context 'If no rake arguments are specified' do 
+        context "If ENV['RAILS_APP_PATH'] is not set" do
+          it 'results in an error after execution' do
+            expect{ @rake[task].invoke } .to raise_error("Set the rails app path to the rake argument or the environment variable RAILS_APP_PATH.")
+          end
+        end
+        context "If ENV['RAILS_APP_PATH'] is set" do
+          before do
+            allow(ENV).to receive(:[]).with('RAILS_APP_PATH').and_return('/app')
+          end
+
+          it 'does not result in an error after execution' do
+            expect(@rake[task].invoke).to be_truthy
+          end
+        end
       end
     end
-    context 'If no rake arguments are specified' do 
-      context "If ENV['RAILS_APP_PATH'] is not set" do
-        it 'results in an error after execution' do
-          expect{ @rake[task].invoke } .to raise_error("Set the rails app path to the rake argument or the environment variable RAILS_APP_PATH.")
+
+    context 'When task is missing_rspec_create' do
+      let(:task) { 'missing_rspec_create' }
+
+      context 'When app_path is specified as an argument to rake' do
+        it 'does not result in an error after execution' do
+          expect(@rake[task].invoke('/app')).to be_truthy
         end
       end
-      context "If ENV['RAILS_APP_PATH'] is set" do
-        before do
-          allow(ENV).to receive(:[]).with('RAILS_APP_PATH').and_return('/app')
+      context 'If no rake arguments are specified' do 
+        context "If ENV['RAILS_APP_PATH'] is not set" do
+          it 'results in an error after execution' do
+            expect{ @rake[task].invoke } .to raise_error("Set the rails app path to the rake argument or the environment variable RAILS_APP_PATH.")
+          end
         end
+        context "If ENV['RAILS_APP_PATH'] is set" do
+          before do
+            allow(ENV).to receive(:[]).with('RAILS_APP_PATH').and_return('/app')
+          end
 
-        it 'does not result in an error after execution' do
-          expect(@rake[task].invoke).to be_truthy
+          it 'does not result in an error after execution' do
+            expect(@rake[task].invoke).to be_truthy
+          end
         end
       end
     end

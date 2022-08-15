@@ -1,5 +1,5 @@
 module MissingRspec
-  class Directory
+  class Tree
     attr_reader :app_path, :folder_type
 
     def initialize(app_path:, folder_type:)
