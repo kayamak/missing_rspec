@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    missing_rspec (0.1.1)
+    missing_rspec (0.1.2)
 
 GEM
   remote: https://rubygems.org/

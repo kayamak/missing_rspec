@@ -9,11 +9,11 @@ module MissingRspec
       raise "Set the rails app path to the rake argument or the environment variable RAILS_APP_PATH." unless app_path
 
       folder_type ||= 'all'
-      folder_types = MissingRspec::FolderTypesFinder.new(app_path).fetch_folder_types
-      puts "The following folders are targeted: #{folder_types}"
+      folder_types = MissingRspec::FolderTypesFinder.new(app_path).fetch_folder_types      
       if folder_type != 'all'
         folder_types &&= folder_type.split(';').map!(&:strip)
       end
+      puts "The following folders are targeted: #{folder_types}"
 
       case mode
       when :viewer
