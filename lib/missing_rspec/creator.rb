@@ -58,8 +58,10 @@ module MissingRspec
 
     def build_rspec_content(full_class_name, folder_type)
       <<~EOS
+        # rubocop:disable Lint/EmptyBlock
         RSpec.describe #{full_class_name}, type: :#{folder_type.singularize} do
         end
+        # rubocop:enaable Lint/EmptyBlock
       EOS
     end
 
