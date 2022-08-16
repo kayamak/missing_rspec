@@ -43,7 +43,7 @@ module MissingRspec
 
     def build_full_class_name(module_name, class_name)
       if module_name.start_with?("Concerns")
-        "#{'"'}#{class_name}#{'"'}"
+        "'#{class_name}'"
       else
         "#{module_name}#{module_name.blank? ? '' : '::'}#{class_name}"
       end
