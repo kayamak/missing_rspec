@@ -43,7 +43,7 @@ bin/rails missing_rspec
 The following is an example of specifying models, controllers and jobs.
 
 ```shell
-bin/rails missing_rspec[/app,models\n;controllers\n;jobs]
+bin/rails missing_rspec[/app,models\;controllers\;jobs]
 ```
 
 ### Execution example
@@ -187,7 +187,7 @@ bin/rails missing_rspec_create
 The following is an example of specifying models, controllers and jobs.
 
 ```shell
-bin/rails missing_rspec_create[/app,models\n;controllers\n;jobs]
+bin/rails missing_rspec_create[/app,models\;controllers\;jobs]
 ```
 
 ## Contributing
